@@ -10,20 +10,19 @@ let createViz = function(){
     svgEl.attr("height", ctx.h);
     loadData();
 };
-
+ 
 function loadData(){
-    Promise.all([d3.dsv("\t", "data/EC_Proteins.txt"), 
-                d3.dsv("\t", "data/FC_Proteins.txt"), 
-                d3.dsv("\t", "data/PHC_Proteins.txt"),
-                d3.dsv("\t", "data/TC_Proteins.txt"),
+    Promise.all([d3.csv("data/ProteinsPatientsTC.csv"),
+                d3.csv("data/ProteinsPatientsFC.csv"),
+                d3.csv("data/ProteinsPatientsEC.csv"),
+                d3.csv("data/ProteinsPatientsPHC.csv"),
                 d3.csv("data/PRIDEdataUploadInfo.csv")]).then(function(data){
                     data.slice(0, 4).forEach(brainPart => {
                         brainPart.forEach(patient => {
-                            let row = data[4].find(pat => pat["Sample code in PD search results"] == patient[0]);
+                            let row = data[4].find(pat => pat["Sample code in PD search results"] == patient[""]);
                             patient.Age = row.Age;
                             patient.Sex = row.Sex;
                             patient["Braak Stage"] = row["Braak Stage"];
-                            console.log(patient);
                         });
                     });
                 
