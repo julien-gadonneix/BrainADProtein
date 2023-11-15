@@ -2,73 +2,55 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>INF552 - 2023 - PC 03</title>
-        <!-- https://vega.github.io/vega-lite/ -->
-        <script src="https://cdn.jsdelivr.net/npm/vega@5.25.0"></script>
-        <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.15.1"></script>
-        <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.22.2"></script>
-        <!-- Your code -->
-        <script src="js/ex03_full.js"></script>
+        <title>Alzheimer's disease brain proteins</title>
+        <!-- https://d3js.org/ -->
+        <script type="text/javascript" src="js/d3.v7.min.js"></script>
+        <script type="text/javascript" src="js/full.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.2/xlsx.full.min.js"></script>
         <style>
-body {
-    font-family: sans-serif;
+svg {
+    display: block;
+    border: 1px solid #444;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-#gridLayout {
+#links path, #links line {
+  stroke: #555;
+  fill:none;
+}
+
+#nodes circle {
+  stroke: #333;
+  stroke-width: 1px;
+}
+
+.state {
+    stroke: white;
+    stroke-width: 1px;
+    fill:#EEE;
+}
+
+.counts {
+    margin-top:.4em;
     width:100%;
-    display:grid;
-    grid-template-columns: 7fr 3fr;
-}
-
-#masses {
-    grid-area: 1 / 1 / 3 / 2;
-}
-
-#discOverTime {
-    grid-area: 2 / 2 / 3 / 3;
-    border-left:2px solid #DDD;
-    border-top:2px solid #DDD;
+    font-family: sans-serif;
+    font-size:60%;
+    font-weight: normal;
+    color:#AAA;
     text-align: center;
-    padding-bottom:1em;
-}
-
-#vmagByDetect {
-    grid-area: 1 / 2 / 2 / 3;
-    border-left:2px solid #DDD;
-    padding-top:1em;
-    text-align: center;
-}
-
-.formLb {
-    font-size:70%;
 }
         </style>
     </head>
 
-    <body onload="createViz();">
-        <div id="gridLayout">
-            <div id="masses">
-                <div>
-                    <form>
-                        <input type="text" name="sampleField" value="*" id="sampleTf"
-                       onkeydown="handleKeyEvent(event);"/>
-                       <input type="button" value="Sample" onclick="setSample();" id="sampleBt"/>
-                       <span class="formLb" style="padding-left:5em;">Scale:</span>
-                       <select id="scaleSelSP" onchange="setScaleSP();">
-                           <option value="linear" selected="selected">Linear</option>
-                           <option value="log">Log</option>
-                       </select>
-                    </form>
-                </div>
-                <div id="massScat"></div>
+    <body onload="createViz()">
+        <div id="main">
+            <div style="float:right">
+                <form>
+                    <input type="button" value="switch" onclick="toggleMap();" id="toggleBt"/>
+                </form>
             </div>
-            <div id="vmagByDetect">
-                <div id="vmagHist"></div>
-            </div>
-            <div id="discOverTime">
-                <div id="discPlot"></div>
-            </div>
-      </div>
+        </div>
     </body>
 
 </html>
