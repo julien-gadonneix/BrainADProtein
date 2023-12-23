@@ -1,74 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <title>INF552 - 2023 - PC 03</title>
-        <!-- https://vega.github.io/vega-lite/ -->
-        <script src="https://cdn.jsdelivr.net/npm/vega@5.25.0"></script>
-        <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.15.1"></script>
-        <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.22.2"></script>
-        <!-- Your code -->
-        <script src="js/ex03_full.js"></script>
-        <style>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protein changes in Alzheimer's disease</title>
+    <script type="text/javascript" src="https://get.goxtk.com/xtk_edge.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap">
+    <script type="text/javascript" src="js/full.js"></script>
+
+
+    <style>
+#rcontainer {
+    max-width: 100%;
+    height: 230px;
+    margin: 0 auto;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
+
 body {
-    font-family: sans-serif;
+    background: linear-gradient(to bottom, #ffffff, #B2DBFF);
+    margin: 0;
 }
 
-#gridLayout {
-    width:100%;
-    display:grid;
-    grid-template-columns: 7fr 3fr;
-}
-
-#masses {
-    grid-area: 1 / 1 / 3 / 2;
-}
-
-#discOverTime {
-    grid-area: 2 / 2 / 3 / 3;
-    border-left:2px solid #DDD;
-    border-top:2px solid #DDD;
+header {
     text-align: center;
-    padding-bottom:1em;
+    background-color: rgba(92, 175, 248, 0.6);
+    padding: 20px;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px; 
+    font-weight: 700; 
+    letter-spacing: 1px; 
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); 
 }
 
-#vmagByDetect {
-    grid-area: 1 / 2 / 2 / 3;
-    border-left:2px solid #DDD;
-    padding-top:1em;
-    text-align: center;
+#description {
+    flex: 1;
+    margin-right: 20px;
+    padding: 30px;
 }
 
-.formLb {
-    font-size:70%;
+#description p {
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    line-height: 1.5;
+    color: #333; 
 }
-        </style>
-    </head>
 
-    <body onload="createViz();">
-        <div id="gridLayout">
-            <div id="masses">
-                <div>
-                    <form>
-                        <input type="text" name="sampleField" value="*" id="sampleTf"
-                       onkeydown="handleKeyEvent(event);"/>
-                       <input type="button" value="Sample" onclick="setSample();" id="sampleBt"/>
-                       <span class="formLb" style="padding-left:5em;">Scale:</span>
-                       <select id="scaleSelSP" onchange="setScaleSP();">
-                           <option value="linear" selected="selected">Linear</option>
-                           <option value="log">Log</option>
-                       </select>
-                    </form>
-                </div>
-                <div id="massScat"></div>
-            </div>
-            <div id="vmagByDetect">
-                <div id="vmagHist"></div>
-            </div>
-            <div id="discOverTime">
-                <div id="discPlot"></div>
-            </div>
-      </div>
-    </body>
+input[type="button"] {
+    background-color: rgba(92, 175, 248, 0.8);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
 
+input[type="button"]:hover {
+    background-color: rgba(92, 175, 248, 0.6);
+}
+
+#buttonContainer {
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+    padding : 15px
+}
+
+strong {
+    color: rgba(0, 30, 150, 1.0);
+}
+
+.buttonDescription {
+    font-family: 'Roboto', sans-serif; 
+    font-size: 16px; 
+    color: #333; 
+    margin-top: 8px; 
+}
+    </style>
+</head>
+
+<body onload="createViz()">
+    <header>
+        <h1>Protein changes in Alzheimer's disease</h1>
+    </header>
+    <div id="rcontainer">
+        <div id="description">
+            <p><strong>Alzheimer's disease</strong> is a progressive <strong>neurological disorder</strong> that primarily affects memory, thinking skills, and behavior. 
+                It's the most common cause of dementia, slowly impairing cognitive functions and eventually interfering with daily life. 
+                Alzheimer's is characterized by the buildup of <strong>abnormal protein deposits in the brain</strong>, which disrupts communication 
+                between nerve cells, causing them to degenerate and die. Though there's no cure yet, ongoing research aims to better 
+                understand the disease and to develop effective treatments. <strong>This website aims to investigate the evolution of certain 
+                proteins in four memory-related brain regions to better understand the progression of this disease.</strong></p>
+        </div>
+        <div id="buttonContainer">
+            <p class="buttonDescription"><strong>Access to a presentation of the patients to contextualize our study.</strong></p>
+            <input type="button" value="On" onclick="window.location.href = 'main_dataset.html'; "id="updateBt1" />
+            <br><br>
+            <p class="buttonDescription"><strong>Access to the study on the evolution of proteins during the different stages of the disease.</strong></p>
+            <input type="button" value="On" onclick="window.location.href = 'main_protein_change.html'; "id="updateBt2" />
+        </div>
+    </div>
+</body>
 </html>
