@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Protein changes in Alzheimer's disease</title>
+        <!-- https://d3js.org/ -->
+        <script type="text/javascript" src="js/d3.v7.min.js"></script>
+        <script type="text/javascript" src="js/full_protein_change.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.2/xlsx.full.min.js"></script>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap">
+        <style>
+svg {
+    display: block;
+    border: 1px solid #444;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    margin-bottom: 20px
+}
+
+#links path, #links line {
+  stroke: #555;
+  fill:none;
+}
+
+#nodes circle {
+  stroke: #333;
+  stroke-width: 1px;
+}
+
+.state {
+    stroke: white;
+    stroke-width: 1px;
+    fill:#EEE;
+}
+
+.counts {
+    margin-top:.4em;
+    width:100%;
+    font-family: sans-serif;
+    font-size:60%;
+    font-weight: normal;
+    color:#AAA;
+    text-align: center;
+}
+
+header {
+    text-align: center;
+    background-color: rgba(92, 175, 248, 0.6);
+    padding: 20px;
+    color: white;
+    font-family: 'Montserrat', sans-serif; /* Choose your preferred font */
+    font-size: 20px; /* Increased font size for emphasis */
+    font-weight: 700; /* Bold font weight for added impact */
+    letter-spacing: 1px; /* Slight letter spacing for better readability */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); /* Increased text shadow for depth */
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px
+}
+
+body {
+    background: rgba(92, 175, 248, 0.1);
+    margin: 0;
+}
+
+.styled-form-container {
+    float: right;
+    padding: 20px;
+    background-color: rgba(92, 175, 248, 0.2);
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-family: Arial, sans-serif;
+}
+
+.form-label {
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.form-radio-label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.form-instruction {
+    margin-top: 20px;
+}
+        </style>
+    </head>
+
+    <body onload="createViz()">
+        <header>
+            <h1>Protein changes in Alzheimer's disease</h1>
+        </header>
+        <div id="main">
+            <div class="styled-form-container">
+                <form id="brainPartForm">
+                    <label class="form-label">Select the brain part:</label>
+                    <label class="form-radio-label"><input type="radio" name="choice" value="0" checked> Entorhinal Cortex</label>
+                    <label class="form-radio-label"><input type="radio" name="choice" value="1"> Temporal Cortex</label>
+                    <label class="form-radio-label"><input type="radio" name="choice" value="2"> Parahippocampal Cortex</label>
+                    <label class="form-radio-label"><input type="radio" name="choice" value="3"> Frontal Cortex</label>
+            
+                    <br><br>
+            
+                    <label class="form-label">Select the stage of Alzheimer's disease:</label>
+                    <label class="form-radio-label"><input type="radio" name="choice2" value="Early" checked> Early Stages</label>
+                    <label class="form-radio-label"><input type="radio" name="choice2" value="Late"> Late Stages</label>
+            
+                    <br><br>
+            
+                    <label class="form-label form-instruction">
+                        In the barchart, the proteins are overexpressed <br>
+                        \(2^y\) times
+                    </label>
+                </form>
+            </div>
+        </div>
+    </body>
+
+</html>
